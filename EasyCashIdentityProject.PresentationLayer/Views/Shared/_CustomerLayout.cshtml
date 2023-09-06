@@ -1,6 +1,5 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+	Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,30 +7,24 @@
 @await Component.InvokeAsync("_CustomerLayoutHeaderPartial")
 
 <body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
-            @await Component.InvokeAsync("_CustomerLayoutSidebarPartial")
+	<div class="container body">
+		<div class="main_container">
+			@await Component.InvokeAsync("_CustomerLayoutSidebarPartial")
 
-            @await Component.InvokeAsync("_CustomerLayoutNavbarPartial")
-            <!-- /top navigation -->
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h2>@RenderBody()</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /page content -->
-            <!-- footer content -->
-            @await Component.InvokeAsync("_CustomerLayoutFooterPartial")
-            <!-- /footer content -->
-        </div>
-    </div>
-    @await Component.InvokeAsync("_CustomerLayoutScriptsPartial")
-    <!-- jQuery -->
+			@await Component.InvokeAsync("_CustomerLayoutNavbarPartial")
+			<!-- /top navigation -->
+			<!-- page content -->
+			<div class="" role="main">
+					<h2>@RenderBody()</h2>
+			</div>
+			<!-- /page content -->
+			<!-- footer content -->
+			@await Component.InvokeAsync("_CustomerLayoutFooterPartial")
+			<!-- /footer content -->
+		</div>
+	</div>
+	@await Component.InvokeAsync("_CustomerLayoutScriptsPartial")
+	<!-- jQuery -->
 
 </body>
 </html>
