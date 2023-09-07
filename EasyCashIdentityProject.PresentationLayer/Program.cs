@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>()
 .AddErrorDescriber<CustomIdentityValidator>();
-
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<ICustomerAccountProcessDal, EfCustomerAccountProcessDal>();
 builder.Services.AddScoped<ICustomerAccountProcessService, CustomerAccountProcessManager>();
 

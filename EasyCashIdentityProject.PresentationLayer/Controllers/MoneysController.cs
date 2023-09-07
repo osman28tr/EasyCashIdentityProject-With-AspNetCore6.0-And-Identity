@@ -1,4 +1,5 @@
-﻿using EasyCashIdentityProject.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using EasyCashIdentityProject.BusinessLayer.Abstract;
 using EasyCashIdentityProject.DataAccessLayer.Concrete;
 using EasyCashIdentityProject.DTO.Dtos.CustomerAccountProcessDtos;
 using EasyCashIdentityProject.EntityLayer.Concrete;
@@ -11,11 +12,13 @@ namespace EasyCashIdentityProject.PresentationLayer.Controllers
 	{
 		private readonly UserManager<AppUser> _userManager;
 		private readonly ICustomerAccountProcessService _customerAccountProcessService;
+		private readonly IMapper _mapper;
 
-        public MoneysController(UserManager<AppUser> userManager, ICustomerAccountProcessService customerAccountProcessService)
+        public MoneysController(UserManager<AppUser> userManager, ICustomerAccountProcessService customerAccountProcessService,IMapper mapper)
         {
             _userManager = userManager;
             _customerAccountProcessService = customerAccountProcessService;
+			_mapper = mapper;
         }
 
         [HttpGet]
@@ -33,16 +36,12 @@ namespace EasyCashIdentityProject.PresentationLayer.Controllers
 
 			var senderAccountNumberId = context.CustomerAccounts.Where(x => x.AppUserId == user.Id).Where(y => y.CustomerAccountCurrency == "Türk Lirası").Select(z => z.CustomerAccountID).FirstOrDefault();
 
-			var values = new CustomerAccountProcess
-			{
-				ProcessDate = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
-				SenderId = senderAccountNumberId,
-				ProcessType = "Havale",
-				ReceiverId = receiverAccountNumberId,
-				Amount = sendMoneyDto.Amount,
-				Description = sendMoneyDto.Description
-			};
-			_customerAccountProcessService.TInsert(values);
+			CustomerAccountProcess customerAccountProcess = _mapper.Map<CustomerAccountProcess>(sendMoneyDto);
+	
+			customerAccountProcess.ReceiverId = receiverAccountNumberId;
+			customerAccountProcess.SenderId = senderAccountNumberId;
+
+			_customerAccountProcessService.TInsert(customerAccountProcess);
 			return RedirectToAction("Index", "Deneme");
 		}
 	}
