@@ -38,7 +38,12 @@ namespace EasyCashIdentityProject.BusinessLayer.Concrete
             _customerAccountProcessDal.Insert(t);
         }
 
-        public void TUpdate(CustomerAccountProcess t)
+		public List<CustomerAccountProcess> TLastProcess(int id)
+		{
+            return _customerAccountProcessDal.LastProcess(id);
+		}
+
+		public void TUpdate(CustomerAccountProcess t)
         {
             _customerAccountProcessDal.Update(t);
         }

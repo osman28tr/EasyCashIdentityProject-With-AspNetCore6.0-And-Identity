@@ -59,6 +59,10 @@ namespace EasyCashIdentityProject.PresentationLayer.Controllers
                 return View();
             }
         }
+        public IActionResult GetList()
+        {
+            return View();
+        }
     }
 }
 //password: 123456aA*
